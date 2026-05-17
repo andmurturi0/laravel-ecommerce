@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { ShoppingBagIcon } from '@heroicons/vue/24/outline';
+import { ShoppingBag } from 'lucide-vue-next';
 
 defineProps({
     title: {
@@ -17,7 +17,7 @@ defineProps({
 <template>
     <div class="flex flex-col items-center justify-center py-20 px-4 text-center">
         <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-full mb-6">
-            <ShoppingBagIcon class="w-16 h-16 text-gray-400" />
+            <ShoppingBag class="w-16 h-16 text-gray-400" />
         </div>
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ title }}</h2>
         <p class="text-gray-600 dark:text-gray-400 max-w-sm mb-8">

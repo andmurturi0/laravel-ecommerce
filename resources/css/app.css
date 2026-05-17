@@ -1,6 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+@theme {
+    --font-sans: "Poppins", "Figtree", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-satoshi: "Satoshi", sans-serif;
+    --font-neue: "Neue Montreal", sans-serif;
+
+    --color-admin-sidebar: #0F0F10;
+    --color-admin-main: #09090B;
+    --color-admin-accent: #C7A27C;
+    --color-admin-modern: #9FE870;
+}
 
 html {
     scroll-behavior: smooth;

@@ -2,12 +2,11 @@
 import { computed } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import { 
-    PlusIcon, 
-    MinusIcon, 
-    TrashIcon, 
-    HeartIcon 
-} from '@heroicons/vue/24/outline';
-import { HeartIcon as HeartIconSolid } from '@heroicons/vue/24/solid';
+    Plus, 
+    Minus, 
+    Trash2, 
+    Heart 
+} from 'lucide-vue-next';
 
 const props = defineProps({
     item: {
@@ -79,7 +78,7 @@ const handleQuantityChange = (newQty) => {
                         :disabled="item.quantity <= 1"
                         class="p-2 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-25 transition-colors"
                     >
-                        <MinusIcon class="w-4 h-4" />
+                        <Minus class="w-4 h-4" />
                     </button>
                     <span class="px-4 py-1 text-sm font-medium w-12 text-center select-none">{{ item.quantity }}</span>
                     <button 
@@ -87,7 +86,7 @@ const handleQuantityChange = (newQty) => {
                         :disabled="item.quantity >= item.product.stock"
                         class="p-2 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-25 transition-colors"
                     >
-                        <PlusIcon class="w-4 h-4" />
+                        <Plus class="w-4 h-4" />
                     </button>
                 </div>
 
@@ -98,14 +97,14 @@ const handleQuantityChange = (newQty) => {
                         class="p-2 text-gray-400 hover:text-rose-500 transition-colors"
                         title="Save for later"
                     >
-                        <HeartIcon class="w-5 h-5" />
+                        <Heart class="w-5 h-5" />
                     </button>
                     <button 
                         @click="emit('remove')"
                         class="p-2 text-gray-400 hover:text-rose-500 transition-colors"
                         title="Remove item"
                     >
-                        <TrashIcon class="w-5 h-5" />
+                        <Trash2 class="w-5 h-5" />
                     </button>
                 </div>
             </div>

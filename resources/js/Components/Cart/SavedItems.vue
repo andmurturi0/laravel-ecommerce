@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { ShoppingCartIcon, HeartIcon } from '@heroicons/vue/24/outline';
+import { ShoppingCart, Heart } from 'lucide-vue-next';
 
 defineProps({
     items: {
@@ -22,7 +22,7 @@ const formattedPrice = (price) => {
 <template>
     <div v-if="items.length > 0" class="mt-16 animate-in fade-in duration-700">
         <div class="flex items-center mb-6">
-            <HeartIcon class="w-6 h-6 text-rose-500 mr-2" />
+            <Heart class="w-6 h-6 text-rose-500 mr-2" />
             <h2 class="text-xl font-bold text-gray-900 dark:text-white">Saved for later</h2>
         </div>
 
@@ -47,7 +47,7 @@ const formattedPrice = (price) => {
                     @click="emit('move-to-cart', item.id)"
                     class="mt-auto flex items-center justify-center w-full py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl text-sm font-bold hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white transition-all duration-300"
                 >
-                    <ShoppingCartIcon class="w-4 h-4 mr-2" />
+                    <ShoppingCart class="w-4 h-4 mr-2" />
                     Move to Cart
                 </button>
             </div>

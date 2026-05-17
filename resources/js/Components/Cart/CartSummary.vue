@@ -2,12 +2,12 @@
 import { ref } from 'vue';
 import { useForm, Link } from '@inertiajs/vue3';
 import { 
-    TicketIcon, 
-    XMarkIcon, 
-    ArrowRightIcon, 
-    InformationCircleIcon 
-} from '@heroicons/vue/24/outline';
-import { CheckBadgeIcon } from '@heroicons/vue/24/solid';
+    Ticket, 
+    X, 
+    ArrowRight, 
+    Info,
+    BadgeCheck
+} from 'lucide-vue-next';
 
 const props = defineProps({
     summary: {
@@ -46,11 +46,11 @@ const handleApplyCoupon = () => {
             <label for="coupon" class="block text-[10px] font-black uppercase tracking-widest text-zinc-500 mb-3">Have a coupon code?</label>
             <div v-if="summary.coupon" class="flex items-center justify-between p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
                 <div class="flex items-center">
-                    <CheckBadgeIcon class="w-5 h-5 text-emerald-500 mr-3" />
+                    <BadgeCheck class="w-5 h-5 text-emerald-500 mr-3" />
                     <span class="text-sm font-black text-emerald-500 uppercase tracking-widest">{{ summary.coupon.code }}</span>
                 </div>
                 <button @click="emit('remove-coupon')" class="text-emerald-500 hover:text-white transition-colors">
-                    <XMarkIcon class="w-5 h-5" />
+                    <X class="w-5 h-5" />
                 </button>
             </div>
             <div v-else class="relative">
@@ -86,7 +86,7 @@ const handleApplyCoupon = () => {
             <div class="flex justify-between text-xs font-bold uppercase tracking-widest">
                 <span class="text-zinc-500 flex items-center">
                     Shipping
-                    <InformationCircleIcon class="w-4 h-4 ml-2 text-zinc-700 cursor-help" title="Standard shipping rate" />
+                    <Info class="w-4 h-4 ml-2 text-zinc-700 cursor-help" title="Standard shipping rate" />
                 </span>
                 <span class="text-white">
                     {{ summary.shipping > 0 ? formattedPrice(summary.shipping) : 'FREE' }}
@@ -120,7 +120,7 @@ const handleApplyCoupon = () => {
             class="w-full flex items-center justify-center px-8 py-6 bg-white text-black rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-zinc-200 transition-all duration-300 group shadow-2xl active:scale-95"
         >
             Checkout
-            <ArrowRightIcon class="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
+            <ArrowRight class="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
         </Link>
 
         <!-- Trust Badges -->

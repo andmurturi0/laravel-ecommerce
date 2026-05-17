@@ -167,9 +167,9 @@ onMounted(() => {
 
                         <!-- Bottom Right: Button -->
                         <div class="absolute bottom-16 right-16 z-30">
-                            <button class="bg-white text-black px-10 py-4 rounded-2xl font-black uppercase tracking-tight text-xs hover:bg-zinc-200 transition-all hover:scale-105 active:scale-95 shadow-2xl">
+                            <Link :href="route('shop.index')" class="bg-white text-black px-10 py-4 rounded-2xl font-black uppercase tracking-tight text-xs hover:bg-zinc-200 transition-all hover:scale-105 active:scale-95 shadow-2xl">
                                 Check the shop
-                            </button>
+                            </Link>
                         </div>
                     </div>
 

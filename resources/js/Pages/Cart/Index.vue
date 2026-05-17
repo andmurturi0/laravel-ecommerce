@@ -8,7 +8,7 @@ import CartItem from '@/Components/Cart/CartItem.vue';
 import CartSummary from '@/Components/Cart/CartSummary.vue';
 import EmptyCart from '@/Components/Cart/EmptyCart.vue';
 import SavedItems from '@/Components/Cart/SavedItems.vue';
-import { ChevronLeftIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import { ChevronLeft, Trash2 } from 'lucide-vue-next';
 
 const props = defineProps({
     cart: Object,
@@ -45,7 +45,7 @@ watch(() => props.summary, (newSummary) => {
                         :href="route('shop.index')" 
                         class="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-white transition-colors mb-2"
                     >
-                        <ChevronLeftIcon class="w-4 h-4 mr-1" />
+                        <ChevronLeft class="w-4 h-4 mr-1" />
                         Continue Shopping
                     </Link>
                     <h1 class="text-6xl font-black uppercase italic tracking-tighter text-white">
@@ -59,7 +59,7 @@ watch(() => props.summary, (newSummary) => {
                     @click="cartStore.clearCart"
                     class="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-rose-500 hover:text-rose-400 transition-colors"
                 >
-                    <TrashIcon class="w-4 h-4 mr-2" />
+                    <Trash2 class="w-4 h-4 mr-2" />
                     Clear Cart
                 </button>
             </div>

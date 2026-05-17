@@ -28,7 +28,7 @@ class InitialSeeder extends Seeder
         User::firstOrCreate(['email' => 'client@shkeel.com'], [
             'name' => 'Test Client',
             'password' => Hash::make('password'),
-            'role' => 'client',
+            'role' => 'customer',
         ]);
 
         // 3. Categories (Persistent)
