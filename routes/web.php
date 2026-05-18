@@ -29,6 +29,11 @@ Route::post('/checkout', [CheckoutController::class, 'store'])->middleware('thro
 Route::post('/cart/coupon', [CouponController::class, 'apply'])->name('cart.coupon.apply');
 Route::delete('/cart/coupon', [CouponController::class, 'remove'])->name('cart.coupon.remove');
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::post('/notifications/{id}/read', [\App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/read-all', [\App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.read-all');
+});
+
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;

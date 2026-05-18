@@ -12,12 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_vip')->default(false);
-            $table->boolean('is_banned')->default(false);
-            $table->timestamp('last_active_at')->nullable();
-            $table->decimal('total_spent', 12, 2)->default(0);
-            $table->integer('total_orders')->default(0);
-            $table->text('ban_reason')->nullable();
+            if (!Schema::hasColumn('users', 'is_vip')) {
+                $table->boolean('is_vip')->default(false);
+            }
+            if (!Schema::hasColumn('users', 'is_banned')) {
+                $table->boolean('is_banned')->default(false);
+            }
+            if (!Schema::hasColumn('users', 'last_active_at')) {
+                $table->timestamp('last_active_at')->nullable();
+            }
+            if (!Schema::hasColumn('users', 'total_spent')) {
+                $table->decimal('total_spent', 12, 2)->default(0);
+            }
+            if (!Schema::hasColumn('users', 'total_orders')) {
+                $table->integer('total_orders')->default(0);
+            }
+            if (!Schema::hasColumn('users', 'ban_reason')) {
+                $table->text('ban_reason')->nullable();
+            }
         });
     }
 

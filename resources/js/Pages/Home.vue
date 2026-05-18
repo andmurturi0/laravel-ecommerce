@@ -269,17 +269,18 @@ onMounted(() => {
             <!-- About Us / Heritage Section -->
             <section id="about" class="py-24 lg:py-44 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-32">
                 <div class="flex-1 w-full max-w-xl lg:max-w-none h-[400px] sm:h-[600px] relative group">
-                    <div class="absolute inset-0 border border-white/5 rounded-[3rem] lg:rounded-[4.5rem] transform translate-x-5 translate-y-5 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-1000"></div>
-                    <div class="absolute inset-0 bg-[#0F0F0F] rounded-[3rem] lg:rounded-[4.5rem] overflow-hidden border border-white/10 shadow-2xl relative z-10 flex items-center justify-center">
+                    <!-- Invisible Frame (Removed border, kept structure) -->
+                    <div class="absolute inset-0 rounded-[3rem] lg:rounded-[4.5rem] transform translate-x-5 translate-y-5 transition-transform duration-1000"></div>
+                    <div class="absolute inset-0 bg-[#0F0F0F] rounded-[3rem] lg:rounded-[4.5rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.6)] relative z-10 flex items-center justify-center">
                         <template v-if="aboutUs?.image">
-                            <img :src="aboutUs.image" class="w-full h-full object-cover object-center grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[2.5s]" />
+                            <img :src="aboutUs.image" class="w-full h-full object-cover object-center grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-[2.5s]" />
                         </template>
                         <template v-else>
                             <div class="flex flex-col items-center justify-center space-y-4 opacity-[0.03]">
                                 <ShoppingBag class="w-24 h-24 text-white" />
                             </div>
                         </template>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
                     </div>
                 </div>
 
@@ -355,7 +356,7 @@ onMounted(() => {
 
                 <div class="text-center pt-12 border-t border-white/5">
                     <p class="text-zinc-800 text-[9px] font-black uppercase tracking-[0.5em]">
-                        © 2026 ShkeelShoes Global. All Rights Reserved. Designed by And Murturi.
+                        © 2026 Projektii Global. All Rights Reserved. Designed by And Murturi.
                     </p>
                 </div>
             </div>

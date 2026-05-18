@@ -32,7 +32,9 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $request->user()?->load('notifications'),
+                'unread_notifications_count' => $request->user()?->unreadNotifications->count() ?? 0,
+                'notifications' => $request->user() ? $request->user()->notifications()->take(5)->get() : [],
             ],
             'cart_count' => app(\App\Services\CartService::class)->getCart()->items->sum('quantity'),
             'app_url' => config('app.url'),

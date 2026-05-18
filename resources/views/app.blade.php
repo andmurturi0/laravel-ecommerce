@@ -4,20 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title inertia>{{ config('app.name', 'ShkeelShoes') }}</title>
+        <title inertia>{{ config('app.name', 'Projektii') }}</title>
         <meta name="description" content="E-Commerce SaaS Platform for premium footwear. Shop the latest brands and exclusive collections.">
         
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:title" content="{{ config('app.name', 'ShkeelShoes') }}">
+        <meta property="og:title" content="{{ config('app.name', 'Projektii') }}">
         <meta property="og:description" content="E-Commerce SaaS Platform for premium footwear.">
         <meta property="og:image" content="{{ asset('assets/images/logo-white.png') }}">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="{{ url()->current() }}">
-        <meta property="twitter:title" content="{{ config('app.name', 'ShkeelShoes') }}">
+        <meta property="twitter:title" content="{{ config('app.name', 'Projektii') }}">
         <meta property="twitter:description" content="E-Commerce SaaS Platform for premium footwear.">
         <meta property="twitter:image" content="{{ asset('assets/images/logo-white.png') }}">
 

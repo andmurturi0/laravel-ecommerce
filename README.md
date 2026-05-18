@@ -1,4 +1,4 @@
-# 👟 ShkeelShoes - E-Commerce SaaS Platform
+# 👟 Projektii - E-Commerce SaaS Platform
 
 [![Laravel 12](https://img.shields.io/badge/Laravel-12.0-red.svg)](https://laravel.com)
 [![Vue.js 3](https://img.shields.io/badge/Vue.js-3.4-green.svg)](https://vuejs.org)
@@ -17,8 +17,8 @@ Platformë profesionale E-Commerce SaaS e ndërtuar me stack-un më modern (Lara
 
 1. **Clone repository:**
    ```bash
-   git clone https://github.com/your-username/shkeelshoes.git
-   cd shkeelshoes
+   git clone https://github.com/your-username/projektii.git
+   cd projektii
    ```
 
 2. **Backend Setup:**

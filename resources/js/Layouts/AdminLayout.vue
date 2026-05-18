@@ -25,7 +25,51 @@ import {
 
 const page = usePage();
 const user = page.props.auth.user;
+const notifications = computed(() => page.props.auth.notifications || []);
+const unreadCount = computed(() => page.props.auth.unread_notifications_count || 0);
+
+const markAsRead = (id) => {
+    router.post(route('notifications.read', id), {}, {
+        preserveScroll: true,
+        preserveState: true,
+    });
+};
+
+const markAllAsRead = () => {
+    router.post(route('notifications.read-all'), {}, {
+        preserveScroll: true,
+        preserveState: true,
+    });
+};
+
 const isSidebarOpen = ref(false);
+const searchQuery = ref('');
+
+const searchItems = [
+    { name: 'Dashboard', href: route('dashboard'), keywords: ['home', 'overview', 'main', 'stats'] },
+    { name: 'Inventory', href: route('admin.inventory.index'), keywords: ['stock', 'items', 'warehouse', 'products'] },
+    { name: 'Products', href: route('admin.products.index'), keywords: ['catalog', 'drops', 'sneakers'] },
+    { name: 'Orders', href: route('admin.orders.index'), keywords: ['sales', 'history', 'shipments', 'cash'] },
+    { name: 'Customers', href: route('admin.customers.index'), keywords: ['users', 'clients', 'members'] },
+    { name: 'Analytics', href: route('admin.analytics.index'), keywords: ['charts', 'revenue', 'performance', 'reports', 'trend'] },
+    { name: 'Live Stream', href: route('admin.analytics.index'), keywords: ['live', 'active', 'visitors', 'real-time', 'realtime'] },
+    { name: 'Settings', href: route('admin.settings.index'), keywords: ['config', 'profile', 'security', 'password', 'store'] },
+];
+
+const handleSearch = () => {
+    const query = searchQuery.value.toLowerCase().trim();
+    if (!query) return;
+
+    const match = searchItems.find(item => 
+        item.name.toLowerCase().includes(query) || 
+        item.keywords.some(k => k.includes(query))
+    );
+
+    if (match) {
+        router.visit(match.href);
+        searchQuery.value = '';
+    }
+};
 
 const navigation = [
     { name: 'Dashboard', href: route('dashboard'), icon: LayoutDashboard },
@@ -145,9 +189,11 @@ onUnmounted(() => window.removeEventListener('resize', handleResize));
                             <Search class="h-4 w-4" />
                         </div>
                         <input
+                            v-model="searchQuery"
+                            @keyup.enter="handleSearch"
                             type="text"
-                            placeholder="Quick search..."
-                            class="block w-full pl-11 pr-4 py-2.5 bg-zinc-900/50 border border-white/5 text-sm text-white placeholder-zinc-500 rounded-xl focus:ring-1 focus:ring-admin-modern/50 focus:border-admin-modern/50 transition-all outline-none"
+                            placeholder="Type 'Inventory' or 'Live Stream'..."
+                            class="block w-full pl-11 pr-4 py-2.5 bg-zinc-900/50 border border-white/5 text-sm text-white placeholder:text-zinc-600 rounded-xl focus:ring-1 focus:ring-admin-modern/50 focus:border-admin-modern/50 transition-all outline-none"
                         />
                     </div>
                 </div>
@@ -155,10 +201,53 @@ onUnmounted(() => window.removeEventListener('resize', handleResize));
                 <div class="flex items-center gap-3 sm:gap-5">
                     <!-- Action Buttons - Hidden on mobile, icons only on tablet -->
                     <div class="hidden sm:flex items-center gap-2">
-                        <button class="p-2.5 text-zinc-400 hover:text-white hover:bg-white/5 rounded-xl transition-all relative">
-                            <Bell class="h-5 w-5" />
-                            <span class="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-admin-modern rounded-full ring-2 ring-admin-main"></span>
-                        </button>
+                        <Dropdown align="right" width="80">
+                            <template #trigger>
+                                <button class="p-2.5 text-zinc-400 hover:text-white hover:bg-white/5 rounded-xl transition-all relative group">
+                                    <Bell class="h-5 w-5 group-hover:rotate-12 transition-transform" />
+                                    <span v-if="unreadCount > 0" class="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-admin-modern rounded-full ring-2 ring-admin-main"></span>
+                                </button>
+                            </template>
+                            <template #content>
+                                <div class="p-4 border-b border-white/5 flex items-center justify-between">
+                                    <h4 class="text-xs font-black uppercase tracking-widest text-white">Notifications</h4>
+                                    <button v-if="unreadCount > 0" @click="markAllAsRead" class="text-[9px] font-black text-admin-modern uppercase hover:underline">Mark all as read</button>
+                                </div>
+                                <div class="max-h-80 overflow-y-auto custom-scrollbar">
+                                    <div v-if="notifications.length === 0" class="p-8 text-center">
+                                        <Bell class="w-8 h-8 text-zinc-800 mx-auto mb-2" />
+                                        <p class="text-[10px] font-black text-zinc-600 uppercase">No new alerts</p>
+                                    </div>
+                                    <div 
+                                        v-for="notification in notifications" 
+                                        :key="notification.id" 
+                                        @click="markAsRead(notification.id)"
+                                        class="p-4 border-b border-white/5 hover:bg-white/5 transition-colors cursor-pointer group"
+                                        :class="{'bg-white/[0.02]': !notification.read_at}"
+                                    >
+                                        <div class="flex gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-admin-modern/10 flex items-center justify-center shrink-0">
+                                                <ShoppingCart v-if="notification.data.type === 'order'" class="w-4 h-4 text-admin-modern" />
+                                                <Bell v-else class="w-4 h-4 text-admin-modern" />
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="text-xs font-bold text-white group-hover:text-admin-modern transition-colors">
+                                                    {{ notification.data.message }}
+                                                </p>
+                                                <p class="text-[10px] text-zinc-500 mt-0.5">
+                                                    {{ notification.created_at_human || 'Just now' }} 
+                                                    <span v-if="notification.data.amount">• €{{ notification.data.amount }}</span>
+                                                </p>
+                                            </div>
+                                            <div v-if="!notification.read_at" class="w-1.5 h-1.5 bg-admin-modern rounded-full mt-1.5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <Link :href="route('admin.orders.index')" class="block p-3 text-center text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors">
+                                    View all activity
+                                </Link>
+                            </template>
+                        </Dropdown>
                     </div>
 
                     <Link

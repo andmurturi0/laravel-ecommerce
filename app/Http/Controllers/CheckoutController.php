@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CartResource;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
+use App\Notifications\OrderPlaced;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -103,6 +106,10 @@ class CheckoutController extends Controller
             }
 
             $this->cartService->clearCart();
+
+            // Notify Admins
+            $admins = User::where('role', 'admin')->get();
+            Notification::send($admins, new OrderPlaced($order));
 
             DB::commit();
 
