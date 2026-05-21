@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use App\Http\Requests\StoreOrderRequest;
+
 class CheckoutController extends Controller
 {
     protected CartService $cartService;
@@ -91,6 +93,9 @@ class CheckoutController extends Controller
             ]);
 
             foreach ($cart->items as $item) {
+                // Lock the product for update to prevent race conditions during stock decrement
+                $product = \App\Models\Product::where('id', $item->product_id)->lockForUpdate()->first();
+
                 DB::table('order_items')->insert([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
@@ -102,7 +107,7 @@ class CheckoutController extends Controller
                 ]);
 
                 // Decrement product stock
-                $item->product->decrement('stock', $item->quantity);
+                $product->decrement('stock', $item->quantity);
             }
 
             $this->cartService->clearCart();
